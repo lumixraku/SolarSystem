@@ -8,16 +8,8 @@ module.exports = {
         filename: 'main.js'
     },
     module:{
-        loaders: [{
-            test: /\.js$/,
-            loader: "babel",
-            query: {
-              presets: ['es2015']
-            },
-            //include: path.resolve(__dirname),
-            exclude: /node_modules/
-        }]
+        rules:[
+            { test: /\.js$/, use: ['babel-loader'], include: path.join(__dirname, 'src') },
+        ]
     },
-
-
 }
