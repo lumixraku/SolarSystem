@@ -1,3 +1,5 @@
+import * as THREE from './three.module.js';
+import { OrbitControls } from './orbitControl.js';
 
 /*场景，渲染器，镜头，背景星星，帧率器，第一人称控制*/
 let scene, renderer, camera, particleSystem, stat, control;
@@ -25,7 +27,7 @@ const canvas = document.getElementById('main');
 let raycaster = new THREE.Raycaster();  //指向镭射
 let mouse = new THREE.Vector2();  //鼠标屏幕向量
 
-module.exports = {
+export default {
     /*初始化*/
     init() {
         /*stats帧率统计*/
@@ -49,7 +51,7 @@ module.exports = {
         scene = new THREE.Scene();
 
         /*camera*/
-        camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, cameraFar);
+        camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 1, cameraFar);
         camera.position.set(-200, 50, 0);
         camera.lookAt(new THREE.Vector3(0, 0, 0));
         scene.add(camera);
@@ -199,7 +201,8 @@ module.exports = {
 
 
         /*镜头控制*/
-        control = new THREE.FirstPersonControls(camera, canvas);
+        // control = new THREE.FirstPersonControls(camera, canvas);
+        control = new OrbitControls(camera, canvas);
         control.movementSpeed = 100;
         control.lookSpeed = 0.125;
         control.lookVertical = true;
@@ -280,26 +283,25 @@ module.exports = {
 
     /*初始化指向显示星星名字*/
     displayPlanetName() {
-        stars.forEach(star => {
-            nameConstructor(star.name, stars.volume)
-        }
-        )
-        nameConstructor('Sun', 12);
+        // stars.forEach(star => {
+            // nameConstructor(star.name, stars.volume)
+        // })
+        // nameConstructor('Sun', 12);
 
-        /*根据行星名字和体积构造显示名字*/
-        function nameConstructor(name, volume) {
-            let planetName = new THREE.Mesh(
-                new THREE.TextGeometry(name, {
-                    size: 4,
-                    height: 4
-                }),
-                new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide })
-            );
-            planetName.volume = volume;
-            planetName.visible = false;
-            starNames[name] = planetName;
-            scene.add(planetName);
-        }
+    //     /*根据行星名字和体积构造显示名字*/
+    //     function nameConstructor(name, volume) {
+    //         let planetName = new THREE.Mesh(
+    //             new THREE.TextGeometry(name, {
+    //                 size: 4,
+    //                 height: 4
+    //             }),
+    //             new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide })
+    //         );
+    //         planetName.volume = volume;
+    //         planetName.visible = false;
+    //         starNames[name] = planetName;
+    //         scene.add(planetName);
+    //     }
     },
 
     /*行星移动*/

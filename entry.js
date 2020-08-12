@@ -1,3 +1,3 @@
-let solar = require('./solar/SolarSystem.js');
+import solar from './solar/SolarSystem.js'
 
 solar.init();
